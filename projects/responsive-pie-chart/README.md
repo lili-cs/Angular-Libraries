@@ -47,9 +47,9 @@ data: Data[] = [
 [https://stackblitz.com/edit/angular-ivy-ggl4uo?file=src/app/app.component.ts](https://stackblitz.com/edit/angular-ivy-ggl4uo?file=src/app/app.component.ts)
 
 # Dependencies
-"@angular/common": "^14.2.0"</br>
-"@angular/core": "^14.2.0"</br>
-"@types/d3": "^7.4.0"</br>
+"@angular/common": "^14.2.0",</br>
+"@angular/core": "^14.2.0",</br>
+"@types/d3": "^7.4.0",</br>
 "d3": "^7.6.1"</br>
 
 
