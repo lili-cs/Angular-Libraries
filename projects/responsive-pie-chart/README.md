@@ -3,7 +3,7 @@
   <img src="pie-chart-image.png" width="300">
 </p>
 
-This library generates a responsive pie chart based on the data you provide. When hovered over and clicked on, an context menu which displays data details will show while the corresponding pie segment highlighted. The size and shape of the chart as well as segment colors and labels can be customized. Perticularly, two types of pie chart (classic pie chart and donut chart) can be generated based on the donut hole value provided by user. This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.0. 
+This library generates a responsive pie chart based on the data you provide. When hovered over or clicked on, an context menu which displays data details will show up while the corresponding pie segment highlighted. The size and shape of the chart as well as segment colors and labels can be customized. Two types of pie chart can be generated based on the donut hole value provided (number *0* will generate a classic pie chart; any number larger than *0* will generate a donut chart). This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.0. 
 
 An interactive demo of the pie chart can be found [here](https://angular-ivy-ggl4uo.stackblitz.io). You are welcomed to play with it.
 
@@ -12,7 +12,7 @@ An interactive demo of the pie chart can be found [here](https://angular-ivy-ggl
 ## Usage
 **Step 1:** Install the library to your project by `npm i responsive-pie-chart`.  
 **Step 2:** Import ***ResponsivePieChartModule*** to your module.  
-**Step 3:** Use the library in your template as shown below. The ***data*** property is mandatary while all the other three properties are optional. The default values for ***width*** and ***height*** is *100*. The default value for ***donutHole*** is *0* which means it's a classic pie chart rather than a donut chart.
+**Step 3:** Use the library in your template as shown below. The ***data*** property is mandatary while all the other three properties are optional. The default value for ***width*** and ***height*** is *100*. The default value for ***donutHole*** is *0* which means it's a classic pie chart rather than a donut chart.
 ```
 <lib-responsive-pie-chart
     [data]="data"
