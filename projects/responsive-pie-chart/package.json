@@ -1,6 +1,6 @@
 {
   "name": "responsive-pie-chart",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "generate responsive pie chart based on data provided",
   "keywords": ["responsive", "pie chart", "donut chart", "d3", "angular"],
   "homepage": "https://github.com/lili-cs/Angular-Libraries/blob/main/projects/responsive-pie-chart/README.md",
