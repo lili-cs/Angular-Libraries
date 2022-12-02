@@ -1,7 +1,6 @@
-import { Component, OnInit, ElementRef, AfterViewInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, AfterViewInit, Input } from '@angular/core';
 import * as d3 from 'd3';
 import { PieArcDatum } from 'd3';
-import { expand } from 'rxjs';
 
 export interface Data {
   name: string;
@@ -15,7 +14,7 @@ export interface Data {
   styleUrls: ['./responsive-pie-chart.component.scss']
 })
 export class ResponsivePieChartComponent implements OnInit, AfterViewInit {
-  @Input() donutHole: number = 30;
+  @Input() donutHole: number = 0;
   @Input() width: number = 100;
   @Input() height: number = 100;
   @Input() data: Data[] = [
@@ -38,7 +37,7 @@ export class ResponsivePieChartComponent implements OnInit, AfterViewInit {
   public svgWidth = 0;
   public svgHeight = 0;
 
-  constructor() { }
+  constructor(private eltRef: ElementRef) { }
 
   ngOnInit(): void {
     this.convertData(this.data);
@@ -65,22 +64,28 @@ export class ResponsivePieChartComponent implements OnInit, AfterViewInit {
   }
 
   buildPie() {
-    let g = d3.select('#pieChart')
-      .append('g')
-      .attr('transform', 'translate(' + this.svgWidth / 2 + ',' + this.svgHeight / 2 + ')')
-      .attr('viewBox', '0 0 ' + 2 * (this.radius + this.offset + 2 * this.strokeWidth) + ' ' + 2 * (this.radius + this.offset + 2 * this.strokeWidth));
+    const eltRef = this.eltRef;
+    let arc = d3.arc<PieArcDatum<Data>>().innerRadius(this.donutHole).outerRadius(this.radius);
+    let arcOver = d3.arc<PieArcDatum<Data>>().innerRadius(this.donutHole).outerRadius(this.radius + this.offset);
+
+    let svg = d3.select(this.eltRef.nativeElement)
+      .select('#pieChart')
+      .attr('viewBox', (0-this.radius-this.offset-this.strokeWidth) + " " +  (0-this.radius-this.offset-this.strokeWidth) + " " + 2 * (this.radius + this.offset + 2 * this.strokeWidth) + " " + 2 * (this.radius + this.offset + 2 * this.strokeWidth));
+
+
+    let g = svg.append('g');
+
+      // .attr('transform', 'translate(' + this.svgWidth / 2 + ',' + this.svgHeight / 2 + ')')
 
     // // Generate the pie
     let pie = d3.pie<Data>().value((d: { value: any; }) => d.value);
-    let arc = d3.arc<PieArcDatum<Data>>().innerRadius(this.donutHole).outerRadius(this.radius);
-    let arcOver = d3.arc<PieArcDatum<Data>>().innerRadius(0).outerRadius(this.radius + this.offset);
 
     // Generate groups
-      let arcs = g.selectAll("arc")
-      .data(pie(this.pieData))
-      .enter()
-      .append("g")
-      .attr("class", "arc");
+    let arcs = g.selectAll("arc")
+    .data(pie(this.pieData))
+    .enter()
+    .append("g")
+    .attr("class", "arc");
 
     //Draw arc paths
     arcs.append('path')
@@ -98,7 +103,7 @@ export class ResponsivePieChartComponent implements OnInit, AfterViewInit {
       //  .style("stroke-width", "2px")
        ;
  
-      d3.select('#tooltip')
+      d3.select(eltRef.nativeElement).select('#tooltip')
         .transition().duration(0)
         .style('left', event.offsetX + 'px')
         .style('top', event.offsetY + 'px')
@@ -114,7 +119,7 @@ export class ResponsivePieChartComponent implements OnInit, AfterViewInit {
       // .attr("stroke", "grey")
       ;
 
-      d3.select('#tooltip')
+      d3.select(eltRef.nativeElement).select('div#tooltip')
         .transition().duration(0)
         .style('left', event.offsetX + 'px')
         .style('top', event.offsetY+10 + 'px')
@@ -122,9 +127,9 @@ export class ResponsivePieChartComponent implements OnInit, AfterViewInit {
         .text(d.data.name + ": " + (d.data.value*100).toFixed(2)+'%')
         ;
 
-      d3.select('#indicator')
-        .style('opacity', 1)
-        .text(d.data.name + ": " + (d.data.value*100).toFixed(2)+'%');
+      // d3.select(eltRef.nativeElement).select('#indicator')
+      //   .style('opacity', 1)
+      //   .text(d.data.name + ": " + (d.data.value*100).toFixed(2)+'%');
     })
     .on("mouseout", function(event: any, d: any){
       d3.select(this)
@@ -134,12 +139,12 @@ export class ResponsivePieChartComponent implements OnInit, AfterViewInit {
       // .attr("stroke", "white")
       ;
 
-      d3.select('#tooltip')
+      d3.select(eltRef.nativeElement).select('div#tooltip')
       .style('opacity', 0);
 
-      d3.select('#indicator')
-      .style('opacity', 0)
-      ;
+      // d3.select(eltRef.nativeElement).select('#indicator')
+      // .style('opacity', 0)
+      // ;
     });
   }
 
