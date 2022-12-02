@@ -10,9 +10,9 @@ A visual demo of the pie chart can be found [here](https://angular-ivy-ggl4uo.st
 <br></br>
 
 ## Usage
-Step 1: Install the library to your project by `npm i responsive-pie-chart`.  
-Step 2: Import **ResponsivePieChartModule** to your module.  
-Step 3: Use the library in your html file as shown below. The *data* property is mandatary while all the other three properties are optional. The default values for *width* and *height* is 100. The default value for *donutHole* is 0 which means it's a classic pie chart rather than a donut chart.
+**Step 1:** Install the library to your project by `npm i responsive-pie-chart`.  
+**Step 2:** Import ***ResponsivePieChartModule*** to your module.  
+**Step 3:** Use the library in your template as shown below. The ***data*** property is mandatary while all the other three properties are optional. The default values for ***width*** and ***height*** is *100*. The default value for ***donutHole*** is *0* which means it's a classic pie chart rather than a donut chart.
 ```
 <lib-responsive-pie-chart
     [data]="data"
