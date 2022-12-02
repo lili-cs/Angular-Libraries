@@ -1,4 +1,4 @@
-## ResponsivePieChart
+## Overview
 
 This library generates a responsive pie chart based on the data you provide. When hovered over and clicked on, an context menu which displays data details will show while the corresponding pie segment highlighted. This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.0. 
 
@@ -6,7 +6,7 @@ A visual demo of the pie chart can be found [here](https://stackblitz.com/edit/a
 
 <br></br>
 
-## How To Use The Library
+## Usage
 Step 1: Install the library to your project by `npm i responsive-pie-chart`.  
 Step 2: Import **ResponsivePieChartModule** to your module.  
 Step 3: Use the library in your html file as shown below. The *data* property is mandatary, and the *width* and *height* properties are optional with default values of 100.  

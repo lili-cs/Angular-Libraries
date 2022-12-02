@@ -14,8 +14,9 @@ export interface Data {
 export class AppComponent {
   title = 'consumer-app';
 
-  public width = 100;
-  public height = 100;
+  public width = 300;
+  public height = 400;
+  public donutHole = 40;
   public data: Data[] = [
     {
       name: 'Project1',
@@ -32,10 +33,10 @@ export class AppComponent {
       value: 4,
       color: 'grey'
     },
-    // {
-    //   name: 'Project4',
-    //   value: 1,
-    //   color: 'pink'
-    // }
+    {
+      name: 'Project4',
+      value: 1,
+      color: 'black'
+    }
   ];
 }

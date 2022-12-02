@@ -1,6 +1,7 @@
-import { Component, OnInit, ElementRef, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, ElementRef, AfterViewInit, Input, ViewChild } from '@angular/core';
 import * as d3 from 'd3';
 import { PieArcDatum } from 'd3';
+import { expand } from 'rxjs';
 
 export interface Data {
   name: string;
@@ -11,12 +12,10 @@ export interface Data {
 @Component({
   selector: 'lib-responsive-pie-chart',
   templateUrl: './responsive-pie-chart.component.html',
-  styles: [
-  ]
+  styleUrls: ['./responsive-pie-chart.component.scss']
 })
 export class ResponsivePieChartComponent implements OnInit, AfterViewInit {
-
-  constructor(private eltRef: ElementRef) { }
+  @Input() donutHole: number = 30;
   @Input() width: number = 100;
   @Input() height: number = 100;
   @Input() data: Data[] = [
@@ -33,12 +32,22 @@ export class ResponsivePieChartComponent implements OnInit, AfterViewInit {
   ];
 
   private pieData: Data[] =  [];
+  private radius = 0;
+  private offset = 5;
+  private strokeWidth = 1;
+  public svgWidth = 0;
+  public svgHeight = 0;
+
+  constructor() { }
 
   ngOnInit(): void {
     this.convertData(this.data);
   }
 
   ngAfterViewInit(): void {
+    this.radius = Math.min(this.width, this.height) / 2;
+    this.svgWidth = this.width + this.offset * 2 + this.strokeWidth * 2;
+    this.svgHeight = this.height + this.offset * 2 + this.strokeWidth * 2;
     this.buildPie();
   }
 
@@ -56,16 +65,15 @@ export class ResponsivePieChartComponent implements OnInit, AfterViewInit {
   }
 
   buildPie() {
-    let radius = Math.min(this.width, this.height) / 2;
-
     let g = d3.select('#pieChart')
       .append('g')
-      .attr('transform', 'translate(100, 100)');
+      .attr('transform', 'translate(' + this.svgWidth / 2 + ',' + this.svgHeight / 2 + ')')
+      .attr('viewBox', '0 0 ' + 2 * (this.radius + this.offset + 2 * this.strokeWidth) + ' ' + 2 * (this.radius + this.offset + 2 * this.strokeWidth));
 
     // // Generate the pie
     let pie = d3.pie<Data>().value((d: { value: any; }) => d.value);
-    let arc = d3.arc<PieArcDatum<Data>>().innerRadius(30).outerRadius(radius);
-    let arcOver = d3.arc<PieArcDatum<Data>>().innerRadius(30).outerRadius(radius+5);
+    let arc = d3.arc<PieArcDatum<Data>>().innerRadius(this.donutHole).outerRadius(this.radius);
+    let arcOver = d3.arc<PieArcDatum<Data>>().innerRadius(0).outerRadius(this.radius + this.offset);
 
     // Generate groups
       let arcs = g.selectAll("arc")
@@ -81,13 +89,13 @@ export class ResponsivePieChartComponent implements OnInit, AfterViewInit {
       return d.data.color;
     })
     .attr("stroke", "white")
-    .style("stroke-width", "1px")
+    .style("stroke-width", this.strokeWidth + "px")
     .on("click", function(event, d){
       d3.select(this)
        .transition()
        .duration(100)
        .attr("stroke", "grey")
-       .style("stroke-width", "2px")
+      //  .style("stroke-width", "2px")
        ;
  
       d3.select('#tooltip')
@@ -103,7 +111,7 @@ export class ResponsivePieChartComponent implements OnInit, AfterViewInit {
       .transition()
       .duration(100)
       .attr("d", <any>arcOver)
-      .attr("stroke", "grey")
+      // .attr("stroke", "grey")
       ;
 
       d3.select('#tooltip')
@@ -123,7 +131,7 @@ export class ResponsivePieChartComponent implements OnInit, AfterViewInit {
       .transition()
       .duration(100)
       .attr("d", <any>arc)
-      .attr("stroke", "white")
+      // .attr("stroke", "white")
       ;
 
       d3.select('#tooltip')
