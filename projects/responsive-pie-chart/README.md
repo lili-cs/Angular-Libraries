@@ -1,7 +1,6 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/lili-cs/Angular-Libraries/main/projects/responsive-pie-chart/pie-chart-image.png" width="300">
 </p>
-<br></br>
 
 ## Overview
 
