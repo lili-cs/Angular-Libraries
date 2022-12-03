@@ -1,7 +1,9 @@
-## Overview
 <p align="center">
   <img src="https://raw.githubusercontent.com/lili-cs/Angular-Libraries/main/projects/responsive-pie-chart/pie-chart-image.png" width="300">
 </p>
+<br></br>
+
+## Overview
 
 This library generates a responsive pie chart based on the data you provide. When hovered over or clicked on, a context menu which displays data details will show up while the corresponding pie segment highlighted. The size and shape of the chart as well as segment colors and labels can be customized. Two types of pie chart can be generated based on the donut hole value provided (number *0* will generate a classic pie chart; any number larger than *0* will generate a donut chart). This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.0. 
 
