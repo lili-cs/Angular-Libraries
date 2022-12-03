@@ -108,7 +108,7 @@ export class ResponsivePieChartComponent implements OnInit, AfterViewInit {
         .style('left', event.offsetX + 'px')
         .style('top', event.offsetY + 'px')
         .style('opacity', 1)
-        .text(d.data.name + ": " + d.data.value*100+'%')
+        .text(d.data.name + ": " + (d.data.value*100).toFixed(2) +'%')
         ;
      })
      .on("mouseover", function(event, d){
